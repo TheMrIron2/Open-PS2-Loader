@@ -508,17 +508,17 @@ void guiShowUIConfig(void)
     // configure the enumerations
     const char *scrollSpeeds[] = {_l(_STR_SLOW), _l(_STR_MEDIUM), _l(_STR_FAST), NULL};
     const char *vmodeNames[] = {_l(_STR_AUTO)
-        , "PAL 640x512i @50Hz 24bit"
-        , "NTSC 640x448i @60Hz 24bit"
-        , "EDTV 640x448p @60Hz 24bit"
-        , "EDTV 640x512p @50Hz 24bit"
-        , "VGA 640x480p @60Hz 24bit"
-        , "PAL 704x576i @50Hz 16bit"
-        , "NTSC 704x480i @60Hz 16bit"
-        , "EDTV 704x480p @60Hz 16bit"
-        , "EDTV 704x576p @50Hz 16bit"
-        , "HDTV 1280x720p @60Hz 16bit scaled"
-        , "HDTV 1920x1080i @60Hz 16bit scaled"
+        , "PAL 576i @50Hz 24bit" //640x512i
+        , "NTSC 480i @60Hz 24bit" // 640x448i
+        , "EDTV 480p @60Hz 24bit" // 640x448p
+        , "EDTV 576p @50Hz 24bit" // 640x512p
+        , "VGA 480p @60Hz 24bit" // 640x480p square VGA
+        , "PAL 576i @50Hz 16bit" // 704x576i
+        , "NTSC 704x480i @60Hz 16bit" // 704x480i
+        , "EDTV 704x480p @60Hz 16bit" // 704x480p
+        , "EDTV 704x576p @50Hz 16bit" // 704x576p
+        , "HDTV 720p @60Hz 16bit scaled" // 1280x360p, hopefully vertically doubled if it works which it probably won't
+        , "HDTV 1080i @60Hz 16bit scaled" // 960x540 line doubled/scaled to 1920x1080
         , NULL};
 
     diaSetEnum(diaUIConfig, UICFG_SCROLL, scrollSpeeds);
