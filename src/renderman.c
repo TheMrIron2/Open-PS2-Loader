@@ -42,16 +42,16 @@ static struct rm_mode rm_mode_table[NUM_RM_VMODES] = {
     {-1,                 16,  640,   -1,  4, GS_INTERLACED,    GS_FIELD, RM_ARATIO_4_3,  1,  1}, // AUTO
     {GS_MODE_PAL,        16,  640,  512,  4, GS_INTERLACED,    GS_FIELD, RM_ARATIO_4_3, 11, 10}, // PAL@50Hz
     {GS_MODE_NTSC,       16,  640,  448,  4, GS_INTERLACED,    GS_FIELD, RM_ARATIO_4_3, 54, 59}, // NTSC@60Hz
-    {GS_MODE_DTV_480P,   31,  640,  448,  2, GS_NONINTERLACED, GS_FRAME, RM_ARATIO_4_3,  1,  1}, // DTV480P@60Hz
+    {GS_MODE_DTV_480P,   31,  640,  480,  2, GS_NONINTERLACED, GS_FRAME, RM_ARATIO_4_3,  1,  1}, // DTV480P@60Hz
     {GS_MODE_DTV_576P,   31,  640,  512,  2, GS_NONINTERLACED, GS_FRAME, RM_ARATIO_4_3,  1,  1}, // DTV576P@50Hz
     {GS_MODE_VGA_640_60, 31,  640,  480,  2, GS_NONINTERLACED, GS_FRAME, RM_ARATIO_4_3,  1,  1}, // VGA640x480@60Hz
     // 16bit color mode full screen
     {GS_MODE_PAL,        16,  704,  576,  4, GS_INTERLACED,    GS_FIELD, RM_ARATIO_4_3, 11, 10}, // PAL@50Hz
     {GS_MODE_NTSC,       16,  704,  480,  4, GS_INTERLACED,    GS_FIELD, RM_ARATIO_4_3, 54, 59}, // NTSC@60Hz
-    {GS_MODE_DTV_480P,   31,  704,  480,  2, GS_NONINTERLACED, GS_FRAME, RM_ARATIO_4_3,  1,  1}, // DTV480P@60Hz
+    {GS_MODE_DTV_480P,   31,  720,  480,  2, GS_NONINTERLACED, GS_FRAME, RM_ARATIO_4_3,  1,  1}, // DTV480P@60Hz
     {GS_MODE_DTV_576P,   31,  704,  576,  2, GS_NONINTERLACED, GS_FRAME, RM_ARATIO_4_3,  1,  1}, // DTV576P@50Hz
     {GS_MODE_DTV_720P,   31,  640,  720,  1, GS_NONINTERLACED, GS_FRAME, RM_ARATIO_16_9, 1,  2}, // HDTV720P@60Hz
-    {GS_MODE_DTV_1080I,  31,  640,  540,  1, GS_INTERLACED,    GS_FIELD, RM_ARATIO_16_9, 2,  3}, // HDTV1080I@60Hz
+    {GS_MODE_DTV_1080I,  31,  960,  540,  1, GS_INTERLACED,    GS_FIELD, RM_ARATIO_16_9, 2,  3}, // HDTV1080I@60Hz
 };
 
 // Display Aspect Ratio
@@ -165,7 +165,7 @@ int rmSetMode(int force)
         gsGlobal->PSM = GS_PSM_CT24;
         // Higher resolution use too much VRAM
         // so automatically switch back to 16bit color depth
-        if ((gsGlobal->Width * gsGlobal->Height) > (640 * 512))
+        if ((gsGlobal->Width * gsGlobal->Height) > (640 * 512)) // I might later experiment to see which values exactly overflow VRAM
             gsGlobal->PSM = GS_PSM_CT16S;
         gsGlobal->PSMZ = GS_PSMZ_16S;
         gsGlobal->ZBuffering = GS_SETTING_OFF;
@@ -378,6 +378,7 @@ float rmGetPAR()
     // In interlaced frame mode, the pixel are (virtually) twice as high
     // FIXME: this looks ugly!
     //   we need the font to render at 1920x1080 instead of 1920x540
+    // Perhaps make the font render at a different resolution to the framebuffer in different modes?
     if ((gsGlobal->Interlace == GS_INTERLACED) && (gsGlobal->Field == GS_FRAME))
         fPAR *= 2.0f;
 
