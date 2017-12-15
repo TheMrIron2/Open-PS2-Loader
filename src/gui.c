@@ -517,8 +517,8 @@ void guiShowUIConfig(void)
         , "NTSC 704x480i @60Hz 16bit" // 704x480i
         , "EDTV 704x480p @60Hz 16bit" // 704x480p
         , "EDTV 704x576p @50Hz 16bit" // 704x576p
-        , "HDTV 720p @60Hz 16bit scaled" // 1280x360p, hopefully vertically doubled if it works which it probably won't
-        , "HDTV 1080i @60Hz 16bit scaled" // 960x540 line doubled/scaled to 1920x1080
+        , "HDTV 720p @60Hz 16bit scaled" // 640x720p
+        , "HDTV 1080i @60Hz 16bit scaled" // 960x540 integer scaled to 1920x1080
         , NULL};
 
     diaSetEnum(diaUIConfig, UICFG_SCROLL, scrollSpeeds);
